@@ -147,7 +147,9 @@ public class SOSGameController implements Initializable {
         */
         button.setOnMouseClicked(mouseEvent -> {
             setPlayerSymbol(button);
-            changeTurn();
+            if (!checkWin()) {
+                changeTurn();
+            }
         });
     }
 
@@ -172,6 +174,28 @@ public class SOSGameController implements Initializable {
         button.setOpacity(1.0);
     }
 
+    public boolean checkWin() {
+        int tempState = board.getGameState();
+        if (tempState == 1) {
+            gameEnd();
+            gameText.setText("Blue Player Wins!");
+            return true;
+        }
+        else if (tempState == 2) {
+            gameEnd();
+            gameText.setText("Red Player Wins!");
+            return true;
+        }
+        else if (tempState == -1) {
+            gameEnd();
+            gameText.setText("Blue Player and Red Player Tied!");
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public void changeTurn() {
         //Checks for whose turn it is, and then flips the boolean to change turns
         if (board.getBluePlayerTurn()) {
@@ -181,6 +205,12 @@ public class SOSGameController implements Initializable {
         else {
             board.setBluePlayerTurn(true);
             gameText.setText("Blue Player's Turn");
+        }
+    }
+
+    public void gameEnd() {
+        for (Button button : buttonArray) {
+            button.setDisable(true);
         }
     }
 

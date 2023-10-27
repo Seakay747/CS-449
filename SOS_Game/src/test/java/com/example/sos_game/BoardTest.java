@@ -61,8 +61,61 @@ class BoardTest {
     }
 
     @Test
-    void pointScored() {
-        //TO-DO
+    void generalGameWin() {
+        Board testBoard = new Board();
+        testBoard.boardInit(3, "General Game");
+        testBoard.registerMove(0, 'S');
+        testBoard.registerMove(1, 'O');
+        testBoard.registerMove(2, 'S');
+        testBoard.registerMove(3, 'S');
+        testBoard.registerMove(4, 'O');
+        testBoard.registerMove(5, 'S');
+        testBoard.registerMove(6, 'S');
+        testBoard.registerMove(7, 'O');
+        testBoard.registerMove(8, 'S');
+        assertEquals(1, testBoard.getGameState());
+    }
+
+    @Test
+    void generalGameTie() {
+        Board testBoard = new Board();
+        testBoard.boardInit(3, "General Game");
+        testBoard.registerMove(0, 'S');
+        testBoard.registerMove(1, 'S');
+        testBoard.registerMove(2, 'S');
+        testBoard.registerMove(3, 'S');
+        testBoard.registerMove(4, 'S');
+        testBoard.registerMove(5, 'S');
+        testBoard.registerMove(6, 'S');
+        testBoard.registerMove(7, 'S');
+        testBoard.registerMove(8, 'S');
+        assertEquals(-1, testBoard.getGameState());
+    }
+
+    @Test
+    void simpleGameWin() {
+        Board testBoard = new Board();
+        testBoard.boardInit(5, "Simple Game");
+        testBoard.setBluePlayerTurn(false);
+        testBoard.registerMove(6, 'S');
+        testBoard.registerMove(12, 'O');
+        testBoard.registerMove(18, 'S');
+        assertEquals(2, testBoard.getGameState());
+    }
+
+    @Test
+    void simpleGameTie() {
+        Board testBoard = new Board();
+        testBoard.boardInit(3, "Simple Game");
+        testBoard.registerMove(0, 'S');
+        testBoard.registerMove(1, 'S');
+        testBoard.registerMove(2, 'S');
+        testBoard.registerMove(3, 'S');
+        testBoard.registerMove(4, 'S');
+        testBoard.registerMove(5, 'S');
+        testBoard.registerMove(6, 'S');
+        testBoard.registerMove(7, 'S');
+        testBoard.registerMove(8, 'S');
     }
 
     @Test
