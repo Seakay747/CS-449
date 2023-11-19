@@ -27,8 +27,11 @@ public class SOSGameController implements Initializable {
     //Declaring an array to store the buttons which act as the Cells on the Game Board
     ArrayList<Button> buttonArray;
 
-    //Board is a structure used for the programs view of the game
+    //Board is a class object used for the programs view of the game
     Board board;
+
+    //Computer Player is a class object used for automated playing of the game
+    ComputerPlayer computerPlayer;
 
 
 
@@ -95,6 +98,27 @@ public class SOSGameController implements Initializable {
 
         //Creating the Game Board
         createBoard(buttonArray);
+
+        //Creating the Computer Players
+        computerPlayer = new ComputerPlayer();
+        computerPlayer.computerPlayerInit(data.getComputerPlayer());
+
+        //If Computer Players are used, this is a needed edge case to get them to start playing
+        // as normally they only react to the other player's moves
+        if (computerPlayer.getPlayerVal() == 2 || computerPlayer.getPlayerVal() == 3) {
+            int moveIndex = computerPlayer.firstMove(board.getBoardSize());
+            if (moveIndex < 0) {
+                blueO.setSelected(true);
+                moveIndex = moveIndex * -1;
+            }
+            else {
+                blueS.setSelected(true);
+            }
+            System.out.println(moveIndex);
+            Button moveButton = buttonArray.get(moveIndex);
+            handleMouseClickedEvent(moveButton);
+        }
+
     }
 
 
@@ -146,11 +170,18 @@ public class SOSGameController implements Initializable {
         and then changed the turn to the other player
         */
         button.setOnMouseClicked(mouseEvent -> {
-            setPlayerSymbol(button);
-            if (!checkWin()) {
-                changeTurn();
-            }
+            handleMouseClickedEvent(button);
         });
+    }
+
+    public void handleMouseClickedEvent(Button button) {
+        setPlayerSymbol(button);
+        if (!checkWin()) {
+            changeTurn();
+
+            //If the computers turn is next, the computer takes a turn
+            computerTurn(button);
+        }
     }
 
     public void setPlayerSymbol(Button button) {
@@ -212,6 +243,41 @@ public class SOSGameController implements Initializable {
         for (Button button : buttonArray) {
             button.setDisable(true);
         }
+    }
+
+    public void computerTurn(Button button) {
+        if (computerPlayer.getPlayerVal() == 1 && !board.getBluePlayerTurn() || computerPlayer.getPlayerVal() == 2 && board.getBluePlayerTurn() || computerPlayer.getPlayerVal() == 3) {
+            int buttonIndex = buttonArray.indexOf(button);
+            int[][] tempBoardState = board.getBoardState();
+            int tempBoardSize = board.getBoardSize();
+
+            int moveIndex = computerPlayer.pickCell(buttonIndex, tempBoardState, tempBoardSize);
+
+            if (moveIndex < 0) {
+                if (board.getBluePlayerTurn()) {
+                    blueO.setSelected(true);
+                }
+                else {
+                    redO.setSelected(true);
+                }
+                moveIndex = (moveIndex * -1) - 1;
+            }
+            else {
+                if (board.getBluePlayerTurn()) {
+                    blueS.setSelected(true);
+                }
+                else {
+                    redS.setSelected(true);
+                }
+                moveIndex = moveIndex - 1;
+            }
+
+
+
+            Button moveButton = buttonArray.get(moveIndex);
+            handleMouseClickedEvent(moveButton);
+        }
+
     }
 
 }

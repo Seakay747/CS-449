@@ -11,7 +11,7 @@ class BoardTest {
 
 
     @Test
-    void createEmpty3x3Board() {
+    void testCreateEmpty3x3Board() {
         Board testBoard = new Board();
         testBoard.boardInit(3, "Simple Game");
         int[][] testArray = testBoard.getBoardState();
@@ -23,7 +23,7 @@ class BoardTest {
     }
 
     @Test
-    void createEmpty10x10Board() {
+    void testCreateEmpty10x10Board() {
         Board testBoard = new Board();
         testBoard.boardInit(10, "General Game");
         int[][] testArray = testBoard.getBoardState();
@@ -35,7 +35,7 @@ class BoardTest {
     }
 
     @Test
-    void registerMove_S() {
+    void testRegisterMove_S() {
         Board testBoard = new Board();
         Random random = new Random();
         int buttonIndex = random.nextInt(9);
@@ -48,7 +48,7 @@ class BoardTest {
     }
 
     @Test
-    void registerMove_O() {
+    void testRegisterMove_O() {
         Board testBoard = new Board();
         Random random = new Random();
         int buttonIndex = random.nextInt(100);
@@ -61,7 +61,7 @@ class BoardTest {
     }
 
     @Test
-    void generalGameWin() {
+    void testReneralGameWin() {
         Board testBoard = new Board();
         testBoard.boardInit(3, "General Game");
         testBoard.registerMove(0, 'S');
@@ -77,7 +77,7 @@ class BoardTest {
     }
 
     @Test
-    void generalGameTie() {
+    void testGeneralGameTie() {
         Board testBoard = new Board();
         testBoard.boardInit(3, "General Game");
         testBoard.registerMove(0, 'S');
@@ -93,7 +93,7 @@ class BoardTest {
     }
 
     @Test
-    void simpleGameWin() {
+    void testSimpleGameWin() {
         Board testBoard = new Board();
         testBoard.boardInit(5, "Simple Game");
         testBoard.setBluePlayerTurn(false);
@@ -104,7 +104,7 @@ class BoardTest {
     }
 
     @Test
-    void simpleGameTie() {
+    void testSimpleGameTie() {
         Board testBoard = new Board();
         testBoard.boardInit(3, "Simple Game");
         testBoard.registerMove(0, 'S');
@@ -119,7 +119,7 @@ class BoardTest {
     }
 
     @Test
-    void get3x3BoardSize() {
+    void testGet3x3BoardSize() {
         Board testBoard = new Board();
         testBoard.boardInit(3, "Simple Game");
         int boardSize = testBoard.getBoardSize();
@@ -127,7 +127,7 @@ class BoardTest {
     }
 
     @Test
-    void get10x10BoardSize() {
+    void testGet10x10BoardSize() {
         Board testBoard = new Board();
         testBoard.boardInit(10, "General Game");
         int boardSize = testBoard.getBoardSize();
@@ -135,7 +135,7 @@ class BoardTest {
     }
 
     @Test
-    void getGameTypeSimple() {
+    void testGetGameTypeSimple() {
         Board testBoard = new Board();
         testBoard.boardInit(3, "Simple Game");
         String gameType = testBoard.getGameType();
@@ -143,7 +143,7 @@ class BoardTest {
     }
 
     @Test
-    void getGameTypeGeneral() {
+    void testGetGameTypeGeneral() {
         Board testBoard = new Board();
         testBoard.boardInit(10, "General Game");
         String gameType = testBoard.getGameType();

@@ -24,10 +24,34 @@ public class CreateGameController implements Initializable {
             = new SpinnerValueFactory.IntegerSpinnerValueFactory(3, 10, 1);
 
     @FXML
+    private RadioButton computerBlue;
+
+    @FXML
+    private RadioButton computerBoth;
+
+    @FXML
+    private RadioButton computerNone;
+
+    @FXML
+    private ToggleGroup computerPlayers;
+
+    @FXML
+    private RadioButton computerRed;
+
+    @FXML
     private ToggleGroup gameType;
 
     @FXML
     private RadioButton generalGame;
+
+    @FXML
+    private RadioButton recordFalse;
+
+    @FXML
+    private ToggleGroup recordGame;
+
+    @FXML
+    private RadioButton recordTrue;
 
     @FXML
     private RadioButton simpleGame;
@@ -53,6 +77,28 @@ public class CreateGameController implements Initializable {
          else if(gameType.getSelectedToggle().equals(simpleGame)) {
              data.setGameType("Simple Game");
          }
+
+         //Getting and Setting user input for Computer Players
+         if(computerPlayers.getSelectedToggle().equals(computerNone)) {
+             data.setComputerPlayer(0);
+         }
+        else if(computerPlayers.getSelectedToggle().equals(computerRed)) {
+            data.setComputerPlayer(1);
+        }
+        else if(computerPlayers.getSelectedToggle().equals(computerBlue)) {
+            data.setComputerPlayer(2);
+        }
+        else if(computerPlayers.getSelectedToggle().equals(computerBoth)) {
+            data.setComputerPlayer(3);
+        }
+
+        //Getting and Setting user input for Record Game
+        if(recordGame.getSelectedToggle().equals(recordTrue)) {
+            data.setRecordGame(true);
+        }
+        else {
+            data.setRecordGame(false);
+        }
 
          //Setting up and sending user to the next scene
         Stage gameStage = (Stage) startGameButton.getScene().getWindow();
