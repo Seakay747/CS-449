@@ -76,6 +76,7 @@ public class Board {
 
     }
 
+    //Checks the board after an S move to see if an SOS was made
     void sCheck(int x, int y) {
         boolean spaceAbove = false;
         boolean spaceBelow = false;
@@ -128,6 +129,7 @@ public class Board {
         }
     }
 
+    //Checks the board after an O move to see if an SOS was made
     void oCheck(int x, int y) {
         int horizontal = 0;
         int vertical = 0;

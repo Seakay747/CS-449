@@ -33,6 +33,9 @@ public class SOSGameController implements Initializable {
     //Computer Player is a class object used for automated playing of the game
     ComputerPlayer computerPlayer;
 
+    //Recorder is a class object used to record the moves made in the game
+    Recorder recorder;
+
 
 
     //Creating GUI elements
@@ -96,6 +99,11 @@ public class SOSGameController implements Initializable {
         buttonArray = new ArrayList<>();
         board = new Board();
 
+        if (data.getRecordGame()) {
+            recorder = new Recorder();
+            recorder.resetRecord();
+        }
+
         //Creating the Game Board
         createBoard(buttonArray);
 
@@ -110,9 +118,15 @@ public class SOSGameController implements Initializable {
             if (moveIndex < 0) {
                 blueO.setSelected(true);
                 moveIndex = moveIndex * -1;
+                if (data.getRecordGame()) {
+                    recorder.writeMove('O', moveIndex, true, board.getBoardSize());
+                }
             }
             else {
                 blueS.setSelected(true);
+                if (data.getRecordGame()) {
+                    recorder.writeMove('S', moveIndex, true, board.getBoardSize());
+                }
             }
             System.out.println(moveIndex);
             Button moveButton = buttonArray.get(moveIndex);
@@ -192,10 +206,16 @@ public class SOSGameController implements Initializable {
         if ((board.getBluePlayerTurn() && blueToggle.getSelectedToggle().equals(blueS)) || !board.getBluePlayerTurn() && redToggle.getSelectedToggle().equals(redS)) {
             button.setText("S");
             board.registerMove(buttonIndex, 'S');
+            if (data.getRecordGame()) {
+                recorder.writeMove('S', buttonIndex, board.getBluePlayerTurn(), board.getBoardSize());
+            }
         }
         else {
             button.setText("O");
             board.registerMove(buttonIndex, '0');
+            if (data.getRecordGame()) {
+                recorder.writeMove('O', buttonIndex, board.getBluePlayerTurn(), board.getBoardSize());
+            }
         }
 
         //TO-DO Delete later, included for testing
@@ -210,16 +230,25 @@ public class SOSGameController implements Initializable {
         if (tempState == 1) {
             gameEnd();
             gameText.setText("Blue Player Wins!");
+            if (data.getRecordGame()) {
+                recorder.writeWin(tempState);
+            }
             return true;
         }
         else if (tempState == 2) {
             gameEnd();
             gameText.setText("Red Player Wins!");
+            if (data.getRecordGame()) {
+                recorder.writeWin(tempState);
+            }
             return true;
         }
         else if (tempState == -1) {
             gameEnd();
             gameText.setText("Blue Player and Red Player Tied!");
+            if (data.getRecordGame()) {
+                recorder.writeWin(tempState);
+            }
             return true;
         }
         else {

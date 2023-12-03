@@ -1,0 +1,11 @@
+Blue Player played an O in board cell 2 , 1
+Blue Player played an O in board cell 2 , 1
+Red Player played an S in board cell 0 , 0
+Blue Player played an S in board cell 0 , 1
+Red Player played an S in board cell 0 , 2
+Blue Player played an S in board cell 1 , 0
+Red Player played an S in board cell 1 , 1
+Blue Player played an S in board cell 1 , 2
+Red Player played an O in board cell 2 , 0
+Blue Player played an S in board cell 2 , 2
+Red and Blue Player Tied!

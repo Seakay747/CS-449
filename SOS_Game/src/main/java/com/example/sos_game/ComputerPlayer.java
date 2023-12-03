@@ -6,10 +6,12 @@ public class ComputerPlayer {
 
     int playerVal;
 
+    //Tells the computerPlayer object exactly which players will be computers
     public void computerPlayerInit(int playerVal) {
         this.playerVal = playerVal;
     }
 
+    //Function called if the computer player is the first to make a move in a game
     public int firstMove(int boardSize) {
         Random random = new Random();
         int moveIndex = random.nextInt(boardSize * boardSize);
@@ -22,6 +24,7 @@ public class ComputerPlayer {
         }
     }
 
+    //Function used to pick a cell to make a move in when it's the computer players turn
     public int pickCell(int buttonIndex, int[][] boardState, int boardSize) {
         int x = buttonIndex % boardSize;
         int y = buttonIndex / boardSize;
@@ -234,6 +237,7 @@ public class ComputerPlayer {
         return -1;
     }
 
+    //Checks to make sure an S can be placed in the selected cell without letting the opponent score a point
     public boolean sSafe(int x, int y, int[][] boardState, int boardSize) {
 
         if (boardState[x][y] != 0) {
@@ -302,6 +306,7 @@ public class ComputerPlayer {
         return true;
     }
 
+    //Checks to make sure an O can be placed in the selected cell without letting the opponent score
     public boolean oSafe(int x, int y, int[][] boardState, int boardSize) {
 
         if (boardState[x][y] != 0) {
@@ -348,6 +353,7 @@ public class ComputerPlayer {
         return true;
     }
 
+    //Translates an (x,y) point on the grid back into an indexable point in the button array
     public int pointToIndex(int x, int y, int boardSize) {
         return (y * boardSize) + x + 1;
     }
